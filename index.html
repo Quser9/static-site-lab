@@ -3,77 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>静态工具实验室</title>
+    <title>AI 导航站 - 全球 AI 工具提效聚合</title>
+    <meta name="keywords" content="AI工具, ChatGPT, AI绘画, AI导航, 生产力工具">
+    <meta name="description" content="精选全球最顶尖的 AI 工具，助力你的工作与学习提效。">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #4a90e2;
-            --bg-color: #f5f7fa;
+            --primary: #4f46e5;
+            --bg: #f8fafc;
             --card-bg: #ffffff;
-            --text-color: #333;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: -apple-system, system-ui, sans-serif;
+            background-color: var(--bg);
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            color: var(--text-main);
         }
-        h1 {
-            margin-bottom: 2rem;
-            font-weight: 300;
+        .header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
         }
         .container {
+            max-width: 1200px;
+            margin: -2rem auto 2rem;
+            padding: 0 1rem;
+        }
+        .category-title {
+            margin: 2rem 0 1rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            width: 90%;
-            max-width: 800px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
         .card {
             background: var(--card-bg);
-            padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
+            padding: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
             text-decoration: none;
             color: inherit;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            border: 1px solid transparent;
         }
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            border-color: var(--primary);
         }
-        .card h2 {
-            margin-top: 0;
-            color: var(--primary-color);
+        .icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+            flex-shrink: 0;
         }
-        .card p {
-            font-size: 0.9rem;
-            color: #666;
+        .info h3 {
+            margin: 0 0 0.25rem;
+            font-size: 1rem;
+        }
+        .info p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: var(--text-sub);
+            line-height: 1.4;
+        }
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #eef2ff;
+            color: #4338ca;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
         }
         footer {
-            margin-top: 3rem;
-            font-size: 0.8rem;
-            color: #aaa;
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-sub);
+            font-size: 0.875rem;
         }
     </style>
 </head>
 <body>
-    <h1>静态工具实验室</h1>
+    <header class="header">
+        <h1>AI 提效工具导航</h1>
+        <p>发现全球最先进的 AI 生产力工具，开启智能办公新时代</p>
+    </header>
+
     <div class="container">
-        <a href="gomoku.html" class="card">
-            <h2>五子棋</h2>
-            <p>经典的策略对弈游戏</p>
-        </a>
-        <a href="mic-test.html" class="card">
-            <h2>麦克风测试</h2>
-            <p>在线检测音频输入设备</p>
-        </a>
+        <!-- 热门大模型 -->
+        <div class="category-title"><i class="fas fa-brain"></i> 热门大模型</div>
+        <div class="grid">
+            <a href="https://chatgpt.com" target="_blank" class="card">
+                <div class="icon"><i class="fas fa-robot"></i></div>
+                <div class="info">
+                    <h3>ChatGPT</h3>
+                    <p>OpenAI 开发的全球最强对话模型，支持插件与数据分析。</p>
+                    <span class="tag">最强通用</span>
+                </div>
+            </a>
+            <a href="https://claude.ai" target="_blank" class="card">
+                <div class="icon"><i class="fas fa-feather"></i></div>
+                <div class="info">
+                    <h3>Claude 3</h3>
+                    <p>Anthropic 推出，长文本理解能力极强，代码生成优秀。</p>
+                    <span class="tag">长文本王者</span>
+                </div>
+            </a>
+            <a href="https://gemini.google.com" target="_blank" class="card">
+                <div class="icon"><i class="fab fa-google"></i></div>
+                <div class="info">
+                    <h3>Google Gemini</h3>
+                    <p>谷歌全家桶深度集成，支持多模态理解与高速响应。</p>
+                    <span class="tag">谷歌生态</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- AI 绘图与创意 -->
+        <div class="category-title"><i class="fas fa-paint-brush"></i> AI 绘图与创意</div>
+        <div class="grid">
+            <a href="https://www.midjourney.com" target="_blank" class="card">
+                <div class="icon"><i class="fas fa-palette"></i></div>
+                <div class="info">
+                    <h3>Midjourney</h3>
+                    <p>艺术感极强的 AI 绘图工具，生成的图像极具质感。</p>
+                    <span class="tag">艺术大师</span>
+                </div>
+            </a>
+            <a href="https://stability.ai" target="_blank" class="card">
+                <div class="icon"><i class="fas fa-bolt"></i></div>
+                <div class="info">
+                    <h3>Stable Diffusion</h3>
+                    <p>开源绘图首选，支持本地部署与高度自定义训练。</p>
+                    <span class="tag">开源自由</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- AI 提效助手 -->
+        <div class="category-title"><i class="fas fa-rocket"></i> 生产力与提效</div>
+        <div class="grid">
+            <a href="https://notion.so" target="_blank" class="card">
+                <div class="icon"><i class="fas fa-notes-medical"></i></div>
+                <div class="info">
+                    <h3>Notion AI</h3>
+                    <p>笔记、项目管理与 AI 写作的完美结合，一键生成草稿。</p>
+                    <span class="tag">知识管理</span>
+                </div>
+            </a>
+            <a href="https://cursor.com" target="_blank" class="card">
+                <div class="icon"><i class="fas fa-code"></i></div>
+                <div class="info">
+                    <h3>Cursor</h3>
+                    <p>下一代 AI 代码编辑器，彻底改变编程工作流。</p>
+                    <span class="tag">程序员必备</span>
+                </div>
+            </a>
+            <a href="https://gamma.app" target="_blank" class="card">
+                <div class="icon"><i class="fas fa-presentation-svg"></i></div>
+                <div class="info">
+                    <h3>Gamma App</h3>
+                    <p>AI 一键生成精美的 PPT、演示文稿和网页。</p>
+                    <span class="tag">PPT神器</span>
+                </div>
+            </a>
+        </div>
     </div>
-    <footer>Powered by GitHub Pages</footer>
+
+    <footer>
+        <p>&copy; 2026 AI 导航站. 托管于 GitHub Pages & Cloudflare.</p>
+        <p>联系合作: <a href="mailto:admin@1111009.xyz">admin@1111009.xyz</a></p>
+    </footer>
 </body>
 </html>
