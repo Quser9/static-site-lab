@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>麦克风测试 - 静态工具实验室</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f5f7fa;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+        #visualizer {
+            width: 100%;
+            height: 100px;
+            background: #eee;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            padding: 0 5px;
+        }
+        .bar {
+            flex: 1;
+            background: #4a90e2;
+            min-height: 2px;
+            transition: height 0.05s ease;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+        .status { margin: 10px; color: #666; }
+        .back-link { margin-top: 20px; text-decoration: none; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>麦克风测试</h1>
+        <p>点击下方按钮授权并测试您的麦克风</p>
+        <button id="startBtn">开始测试</button>
+        <div id="visualizer"></div>
+        <div class="status" id="status">等待开始...</div>
+    </div>
+    <a href="index.html" class="back-link">返回首页</a>
+
+    <script>
+        const startBtn = document.getElementById('startBtn');
+        const visualizer = document.getElementById('visualizer');
+        const status = document.getElementById('status');
+        
+        // 创建可视化条
+        const barCount = 30;
+        const bars = [];
+        for (let i = 0; i < barCount; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'bar';
+            visualizer.appendChild(bar);
+            bars.push(bar);
+        }
+
+        let audioContext;
+        let analyser;
+        let dataArray;
+        let source;
+        let animationId;
+
+        startBtn.onclick = async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                startBtn.disabled = true;
+                status.innerText = "麦克风已连接，请说话...";
+                
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                source = audioContext.createMediaStreamSource(stream);
+                source.connect(analyser);
+                
+                analyser.fftSize = 64;
+                const bufferLength = analyser.frequencyBinCount;
+                dataArray = new Uint8Array(bufferLength);
+
+                draw();
+            } catch (err) {
+                console.error(err);
+                status.innerText = "无法访问麦克风，请检查权限设置。";
+            }
+        };
+
+        function draw() {
+            animationId = requestAnimationFrame(draw);
+            analyser.getByteFrequencyData(dataArray);
+            
+            for (let i = 0; i < barCount; i++) {
+                // 将频率数据映射到可视化条
+                const value = dataArray[i % dataArray.length];
+                const height = (value / 255) * 100;
+                bars[i].style.height = `${Math.max(2, height)}%`;
+                
+                // 颜色变化
+                if (height > 80) bars[i].style.backgroundColor = '#e74c3c';
+                else if (height > 50) bars[i].style.backgroundColor = '#f1c40f';
+                else bars[i].style.backgroundColor = '#4a90e2';
+            }
+        }
+    </script>
+</body>
+</html>
